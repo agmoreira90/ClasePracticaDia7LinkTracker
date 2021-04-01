@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LinkDTO {
     private String url;
+    private String urlShort;
     private String password;
     private Integer redirections;
 

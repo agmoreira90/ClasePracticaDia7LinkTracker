@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 @Service
 public interface LinkService {
 
-    Integer createLink(LinkDTO linkDTO) throws LinkInvalidURL;
+    Long createLink(LinkDTO linkDTO) throws LinkInvalidURL;
 
-    String getRedirection(Integer linkId) throws LinkNotFound;
+    String getRedirection(Long linkId) throws LinkNotFound;
 
-    Integer getStats(Integer linkId) throws LinkNotFound;
+    Integer getStats(Long linkId) throws LinkNotFound;
 
-    void invalidateLink(Integer linkId) throws LinkNotFound;
+    void invalidateLink(Long linkId) throws LinkNotFound;
 
 }

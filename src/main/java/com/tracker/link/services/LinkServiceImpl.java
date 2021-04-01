@@ -6,6 +6,8 @@ import com.tracker.link.exceptionhandler.LinkNotFound;
 import com.tracker.link.repositories.LinkRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,7 +21,7 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public Integer createLink(LinkDTO linkDTO) throws LinkInvalidURL {
+    public Long createLink(LinkDTO linkDTO) throws LinkInvalidURL {
         String regex = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(linkDTO.getUrl());
@@ -31,7 +33,7 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public String getRedirection(Integer linkId) throws LinkNotFound {
+    public String getRedirection(Long linkId) throws LinkNotFound {
         LinkDTO linkDTO = this.linkRepository.selectLink(linkId);
         linkDTO.setRedirections(linkDTO.getRedirections() + 1);
         this.linkRepository.updateLink(linkId, linkDTO);
@@ -39,13 +41,15 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public Integer getStats(Integer linkId) throws LinkNotFound {
+    public Integer getStats(Long linkId) throws LinkNotFound {
         LinkDTO linkDTO = this.linkRepository.selectLink(linkId);
         return linkDTO.getRedirections();
     }
 
     @Override
-    public void invalidateLink(Integer linkId) throws LinkNotFound {
+    public void invalidateLink(Long linkId) throws LinkNotFound {
         this.linkRepository.removeLink(linkId);
     }
+
+
 }

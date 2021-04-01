@@ -6,11 +6,17 @@ import com.tracker.link.exceptionhandler.LinkNotFound;
 import java.util.HashMap;
 
 public interface LinkRepository {
-    LinkDTO selectLink(Integer idLink) throws LinkNotFound;
+    LinkDTO selectLink(Long idLink) throws LinkNotFound;
 
-    Integer insertLink(LinkDTO link);
+    Long insertLink(LinkDTO link);
 
-    void removeLink(Integer idLink) throws LinkNotFound;
+    void removeLink(Long idLink) throws LinkNotFound;
 
-    void updateLink(Integer idLink, LinkDTO link) throws LinkNotFound;
+    void updateLink(Long idLink, LinkDTO link) throws LinkNotFound;
+
+    Long incrementID();
+
+    void saveUrl(String key, String longUrl);
+
+    String getUrl(Long id) throws Exception;
 }

@@ -22,24 +22,24 @@ public class LinkController {
     private LinkService linkService;
 
     @PostMapping("/createlink")
-    public ResponseEntity<Integer> createLink(@RequestBody LinkDTO linkDTO, @RequestParam String password) throws LinkInvalidURL {
+    public ResponseEntity<Long> createLink(@RequestBody LinkDTO linkDTO, @RequestParam String password) throws LinkInvalidURL {
         if (password == null) {
             password = "";
         }
         linkDTO.setPassword(password);
-        Integer linkId = this.linkService.createLink(linkDTO);
+        Long linkId = this.linkService.createLink(linkDTO);
         return ResponseEntity.ok(linkId);
     }
 
     @PostMapping("/{idLink}")
-    public RedirectView getRedirection(@PathVariable Integer idLink) throws LinkNotFound {
+    public RedirectView getRedirection(@PathVariable Long idLink) throws LinkNotFound {
         String linkUrl = this.linkService.getRedirection(idLink);
         RedirectAttributes redirectAttributes = new RedirectAttributesModelMap();
         return new RedirectView(linkUrl);
     }
 
     @GetMapping("/metrics/{idLink}")
-    public Integer getStats(@PathVariable Integer idLink) throws LinkNotFound {
+    public Integer getStats(@PathVariable Long idLink) throws LinkNotFound {
         return this.linkService.getStats(idLink);
     }
 
