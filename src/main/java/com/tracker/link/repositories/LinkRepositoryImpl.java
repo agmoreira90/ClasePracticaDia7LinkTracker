@@ -42,13 +42,16 @@ public class LinkRepositoryImpl implements LinkRepository {
     }
 
     @Override
-    public Long insertLink(LinkDTO link) {
+    public Long insertLink(LinkDTO link,Long idLink) {
         if (this.links == null) {
             this.links = new HashMap<>();
+        }
+        if (idLink == 0) {
             this.idCounter = 0L;
+            idLink = incrementID();
         }
         link.setRedirections(0);
-        this.links.put(++this.idCounter, link);
+        this.links.put(idLink, link);
         return this.idCounter;
     }
 
@@ -68,17 +71,10 @@ public class LinkRepositoryImpl implements LinkRepository {
     }
 
 
-//    //metodos urlShortener
-//    public URLRepository(Jedis jedis, String idKey, String urlKey) {
-//        this.jedis = jedis;
-//        this.idKey = idKey;
-//        this.urlKey = urlKey;
-//    }
-
-    public Long incrementID() {
+   public Long incrementID() {
         if (this.links == null) {
             this.links = new HashMap<>();
-            this.idCounter = 0L;
+            this.idCounter = 19901005L;
         }
         Long id = ++this.idCounter;
         LOGGER.info("Incrementing ID: {}", id);
@@ -87,16 +83,10 @@ public class LinkRepositoryImpl implements LinkRepository {
 
     public void saveUrl(String key, String longUrl) {
         LOGGER.info("Saving: {} at {}", longUrl, key);
-//        jedis.hset(urlKey, key, longUrl);
     }
 
     public String getUrl(Long id) throws Exception {
         LOGGER.info("Retrieving at {}", id);
-//        String url = jedis.hget(urlKey, "url:"+id);
-//        if (url == null) {
-//            throw new Exception("URL at key" + id + " does not exist");
-//        }
-//        return jedis.hget(urlKey, "url:"+id);
-        return "";
+        return this.links.get(id).getUrl();
     }
 }

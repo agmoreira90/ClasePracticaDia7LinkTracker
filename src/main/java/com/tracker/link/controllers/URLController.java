@@ -42,7 +42,7 @@ public class URLController {
         LOGGER.debug("Received shortened url to redirect: " + id);
         String redirectUrlString = urlConverterService.getLongURLFromID(id);
         RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("http://" + redirectUrlString);
+        redirectView.setUrl( redirectUrlString);
         return redirectView;
     }
 }

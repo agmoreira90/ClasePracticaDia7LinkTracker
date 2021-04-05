@@ -1,5 +1,6 @@
 package com.tracker.link.services;
 
+import com.tracker.link.dto.LinkDTO;
 import com.tracker.link.repositories.LinkRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,10 +21,14 @@ public class URLConverterService {
     public String shortenURL(String localURL, String longUrl) {
         LOGGER.info("Shortening {}", longUrl);
         Long id = linkRepository.incrementID();
+        LOGGER.info("Long Id "+ id, id);
         String uniqueID = IDConverter.INSTANCE.createUniqueID(id);
-        linkRepository.saveUrl("url:"+id, longUrl);
+        LOGGER.info("Unique Id " + uniqueID, uniqueID);
+//        linkRepository.saveUrl("url:"+id, longUrl);
         String baseString = formatLocalURLFromShortener(localURL);
         String shortenedURL = baseString + uniqueID;
+        LinkDTO linkDTO = new LinkDTO(longUrl,shortenedURL,localURL,uniqueID);
+        linkRepository.insertLink(linkDTO,id);
         return shortenedURL;
     }
 

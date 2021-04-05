@@ -8,7 +8,7 @@ import java.util.HashMap;
 public interface LinkRepository {
     LinkDTO selectLink(Long idLink) throws LinkNotFound;
 
-    Long insertLink(LinkDTO link);
+    Long insertLink(LinkDTO link, Long idLink);
 
     void removeLink(Long idLink) throws LinkNotFound;
 

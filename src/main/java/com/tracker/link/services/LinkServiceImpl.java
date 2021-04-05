@@ -26,7 +26,7 @@ public class LinkServiceImpl implements LinkService {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(linkDTO.getUrl());
         if (matcher.matches()) {
-            return this.linkRepository.insertLink(linkDTO);
+            return this.linkRepository.insertLink(linkDTO,0L);
         } else {
             throw new LinkInvalidURL(linkDTO.getUrl());
         }
